@@ -1,0 +1,44 @@
+[
+	jbossService_template : template {
+		imageId "-1"   //resolved at runtime                           
+		machineMemoryMB 2000
+		hardwareId "Dual"
+		localDirectory "upload"
+		remoteDirectory "/usr/gs-files"
+		username "root"
+		password "password"
+
+		options ([    
+			//Deployment          
+			"cloudband.deployment.name" : "Cloudify",
+			"cloudband.deployment.description" : "Cloudify CloudBand Services",                                    
+			
+			//Image
+			"cloudband.image.name" : "tmpl_jboss",
+			//Don't really care about any of the stuff below as long as the image name above exists on the system and is accessible by the Dana account.
+			"cloudband.image.description" : "Base template",
+			"cloudband.image.osType" : "CENTOS",
+			"cloudband.image.osBits" : "64",
+			"cloudband.image.osVersion" : "6.3",
+			"cloudband.image.hypervisor": "KVM",   
+			"cloudband.image.url": "http://TBD",
+
+			//SecurityGroup
+			"cloudband.securityGroup.name": "CLOUDIFY_ALLOW_ALL",
+			"cloudband.securityGroup.description": "",                                                    
+			"cloudband.securityGroup.networkProtocol": "",                                    
+			"cloudband.securityGroup.tcp.rangeStart": "1",
+			"cloudband.securityGroup.tcp.rangeEnd": "65535",
+			"cloudband.securityGroup.udp.rangeStart": "1",
+			"cloudband.securityGroup.udp.rangeEnd": "65535",
+			"cloudband.securityGroup.icmpType": "-1",
+			"cloudband.securityGroup.icmpCode": "-1",
+			"cloudband.securityGroup.allowedCidr": "0.0.0.0/0",
+			"cloudband.securityGroup.allowedSecurityGroupId": "",
+
+			//Create machine failure intervals
+			"cloudband.create-machine.retry-interval": "1,3,5,10,15,30,60",
+			"cloudband.create-machine.interval-time-unit": "MINUTES"
+		])
+	}
+]

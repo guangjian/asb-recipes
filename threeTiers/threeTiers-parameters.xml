@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+	<tiersProperties>
+		<property>
+			<tierName>mysqlService</tierName>
+			<name>WebPageGreeting</name>
+			<type>String</type>
+			<defaultValue>Hello World 1</defaultValue>
+			<description>Greeting Text</description>
+		</property>
+		<property>
+			<tierName>dnsSlaveService</tierName>
+			<name>ScalingOn</name>
+			<type>Boolean</type>
+			<defaultValue>true</defaultValue>
+			<description>Whether or not to allow scaling.</description>
+		</property>
+		<property>
+			<tierName>dnsSlaveService</tierName>
+			<name>BaseNumberOfDnsServers</name>
+			<type>Integer</type>
+			<defaultValue>1</defaultValue>
+			<description>Number of DNS servers to start with.</description>
+			<minRange>1</minRange>
+			<maxRange>4</maxRange>
+		</property>
+		<property>
+			<tierName>dnsSlaveService</tierName>
+			<name>MaxAllowedDnsServers</name>
+			<type>Integer</type>
+			<defaultValue>2</defaultValue>
+			<description>Maximum number of DNS servers allowed. Must be greater than or equal to BaseNumberofDnsServers.</description>
+			<minRange>1</minRange>
+			<maxRange>4</maxRange>
+		</property>
+	</tiersProperties>
+</application>
