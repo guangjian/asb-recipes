@@ -8,30 +8,37 @@
 			<defaultValue>Hello World 1</defaultValue>
 			<description>Greeting Text</description>
 		</property>
-		<property>
-			<tierName>dnsSlaveService</tierName>
+        <property>
+			<tierName>apacheService</tierName>
 			<name>ScalingOn</name>
 			<type>Boolean</type>
 			<defaultValue>true</defaultValue>
 			<description>Whether or not to allow scaling.</description>
 		</property>
 		<property>
-			<tierName>dnsSlaveService</tierName>
-			<name>BaseNumberOfDnsServers</name>
+			<tierName>apacheService</tierName>
+			<name>BaseNumberOfApacheServers</name>
 			<type>Integer</type>
 			<defaultValue>1</defaultValue>
-			<description>Number of DNS servers to start with.</description>
+			<description>Number of Apache servers to start with.</description>
 			<minRange>1</minRange>
 			<maxRange>4</maxRange>
 		</property>
 		<property>
-			<tierName>dnsSlaveService</tierName>
-			<name>MaxAllowedDnsServers</name>
+			<tierName>apacheService</tierName>
+			<name>MaxAllowedApacheServers</name>
 			<type>Integer</type>
 			<defaultValue>2</defaultValue>
-			<description>Maximum number of DNS servers allowed. Must be greater than or equal to BaseNumberofDnsServers.</description>
+			<description>Maximum number of Apache servers allowed.</description>
 			<minRange>1</minRange>
 			<maxRange>4</maxRange>
 		</property>
+        <property>
+            <tierName>apacheService</tierName>
+            <name>AlteonVAIP</name>
+            <type>String</type>
+            <defaultValue>192.168.0.40</defaultValue>
+            <description>Alteon VA management IP.</description>
+        </property>
 	</tiersProperties>
 </application>

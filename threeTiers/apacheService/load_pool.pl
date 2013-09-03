@@ -1,4 +1,5 @@
 #!/usr/bin/perl -w
+# v1.0
 use strict;
 use Net::Telnet;
 use Sys::HostAddr;
@@ -8,7 +9,7 @@ use Sys::Hostname;
 
 
 #login info
-my $host        = '192.168.0.48';
+my $host        = 'localhost';
 my $vtyPass     = 'admin';
 my $enaPass     = 'ena123';
 my $cmd         = ' /info/slb/dump';

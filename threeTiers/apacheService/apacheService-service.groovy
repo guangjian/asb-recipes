@@ -16,9 +16,7 @@ service {
     numInstances 1
     minAllowedInstances 1
     maxAllowedInstances 2
-    
-    
-    
+
     compute {
         template "apacheService_template"
     }    
