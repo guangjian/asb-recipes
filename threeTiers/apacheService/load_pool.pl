@@ -15,13 +15,13 @@ my $enaPass     = 'ena123';
 my $cmd         = ' /info/slb/dump';
 
 my $enable  = 'enable';
-my $real_ip = '192.168.20.1';
+my $real_ip = '192.168.2.1';
 my $real_id = 1;
 
 
 
 $real_ip = get_hash_ip();
-$real_id = substr($real_ip, 11);
+$real_id = substr($real_ip, 10);
 my $cmd_real_ip = "/c/slb/real ".$real_id;
 my $wait_real_ip = sprintf("/Real Server %d/i\n", $real_id);
 my $cmd_add_ip = " add ".$real_id;
@@ -41,7 +41,7 @@ print "Staring add VM to Alteon VA\n";
 
 # set vm default route
 system "route del default";
-system "route add default gw 192.168.20.200";
+system "route add default gw 192.168.2.200";
 
 #connect telnet server
 my $conn = new Net::Telnet(
@@ -157,7 +157,7 @@ sub get_hash_ip {
 			#printf("$interface  $aref->{address}\n");
 			#print Dumper($aref);
 			my $ip = $aref->{address};
-			my $position = index($ip, "192.168.20");
+			my $position = index($ip, "192.168.2");
 			if ($position == 0) {
 				return $ip
 			}

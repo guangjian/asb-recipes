@@ -26,18 +26,21 @@ builder.sequential {
 
     //indicate Alteon VA Management IP from recipe parameter
     copy(file:"${serviceContext.serviceDirectory}/${config.AlteonVAScript}" , tofile:"/root/script/${config.AlteonVAScript}")
-    chmod(dir:"/root/script", perm:"+x", includes:"*.pl")
+    chmod(dir:"/root/script/", perm:"+x", includes:"load_pool.pl")
 
     //indicate jboss ip in apache JK2
 	replaceregexp(file:"/etc/httpd/conf/workers.properties",
-		match:"10.100.1.51",
+		match:"localhost",
 		replace:"$jbossServerIP")
 
     replaceregexp(file:"/root/script/load_pool.pl",
             match:"localhost",
             replace:"${alteonVAIP}")
 
-	exec(executable:"/root/script/load_pool.pl", osfamily:"unix")
+	//exec(executable:"/usr/bin/perl /root/script/load_pool.pl", osfamily:"unix")
+    exec(executable: '/usr/bin/perl', osfamily:"unix") {
+        arg value:"/root/script/load_pool.pl"
+    }
     exec(executable: 'service', osfamily:"unix") {
                              arg value:"httpd"
                              arg value:"restart"

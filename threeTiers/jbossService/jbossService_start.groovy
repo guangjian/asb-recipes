@@ -31,7 +31,7 @@ println "Mysql Host IP is $mysqlServerIP"
 println "jboss_start.groovy executing ${script} ..."
 new AntBuilder().sequential {
 	replaceregexp(file:"/opt/jboss-eap-6.1/standalone/deployments/hello.war/index.jsp",
-				match:"localhost",
+				match:"10.100.1.91",
 				replace:"$mysqlServerIP")
 	
 	exec(executable:"${script}.sh", osfamily:"unix")
