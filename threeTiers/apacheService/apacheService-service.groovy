@@ -17,6 +17,21 @@ service {
     minAllowedInstances 1
     maxAllowedInstances 2
 
+    //get cpu usage from
+    /*
+    serviceContext = ServiceContextFactory.getServiceContext()
+    config = new ConfigSlurper().parse(new File("apacheService-service.properties").toURL())
+    minCpuUsage = config.minCpuUsage
+    maxCpuUsage = config.maxCpuUsage
+
+    println "minCpuUsage"
+    println "${minCpuUsage}"
+    println "maxCpuUsage"
+    println "${maxCpuUsage}"
+    */
+
+
+
     compute {
         template "apacheService_template"
     }    
@@ -102,17 +117,12 @@ service {
     samplingPeriodInSeconds 1
 
 
-    
+
+
     scalingRules ([
         scalingRule {
 
             serviceStatistics {
-                //metric "Process Cpu Usage"
-				//metric "Total Process Cpu Time"
-            	
-				//timeStatistics  Statistics.averageCpuPercentage
-				//instancesStatistics Statistics.maximum
-				
 				metric "CPU USAGE"
 				Statistics.maximumOfAverages
 				movingTimeRangeInSeconds 20
@@ -120,14 +130,14 @@ service {
             
 
             highThreshold {
-                value 40
+                value 10
                 instancesIncrease 1
                 
             }
 
 
             lowThreshold {
-                value 20
+                value 5
                 instancesDecrease 1
             }
             

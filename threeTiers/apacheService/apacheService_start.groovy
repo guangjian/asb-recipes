@@ -14,7 +14,6 @@ jbossHostInstances = jbossService.waitForInstances(jbossService.numberOfPlannedI
 jbossServerIP = jbossHostInstances[0].hostAddress
 alteonVAIP = config.AlteonVAIP
 
-
 println "Jboss Host IP is $jbossServerIP"
 println "Alteon MNG IP"
 println "${alteonVAIP}"
