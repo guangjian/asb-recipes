@@ -2,7 +2,7 @@
 	jbossService_template : template {
 		imageId "-1"   //resolved at runtime                           
 		machineMemoryMB 2000
-		hardwareId "Dual"
+		hardwareId "CU-Dual"
 		localDirectory "upload"
 		remoteDirectory "/usr/gs-files"
 		username "root"
