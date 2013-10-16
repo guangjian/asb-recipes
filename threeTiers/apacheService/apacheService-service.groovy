@@ -130,14 +130,14 @@ service {
             
 
             highThreshold {
-                value 10
+                value 40
                 instancesIncrease 1
                 
             }
 
 
             lowThreshold {
-                value 5
+                value 20
                 instancesDecrease 1
             }
             

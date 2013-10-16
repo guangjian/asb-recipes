@@ -15,7 +15,7 @@ foreach my $interface(keys %{$ip_addr})
                 #printf("$interface  $aref->{address}\n"); 
                 #print Dumper($aref); 
 		my $ip = $aref->{address};
-		my $position = index($ip, "192.168.20");
+		my $position = index($ip, "192.168.2");
 		if ($position == 0) {
 			printf("$aref->{address}\n"); 
 		}

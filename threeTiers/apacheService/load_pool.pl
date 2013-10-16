@@ -13,19 +13,23 @@ my $host        = 'localhost';
 my $vtyPass     = 'admin';
 my $enaPass     = 'ena123';
 my $cmd         = ' /info/slb/dump';
+my $group_id	= 'localgroup';
 
 my $enable  = 'enable';
 my $real_ip = '192.168.2.1';
-my $real_id = 1;
+my $real_id = '1';
 
 
 
 $real_ip = get_hash_ip();
-$real_id = substr($real_ip, 11);
+$real_id = substr($real_ip, 10);
 my $cmd_real_ip = "/c/slb/real ".$real_id;
 my $wait_real_ip = sprintf("/Real Server %d/i\n", $real_id);
 my $cmd_add_ip = " add ".$real_id;
 my $cmd_ena_ip = "ena ".$real_id;
+
+my $cmd_group_id = "/c/slb/group ".$group_id;
+my $wait_group_id = sprintf("/Real Server Group %s/i\n", $group_id);
 
 printf "Definition parameter...\n";
 printf "Real IP %s\n", $real_ip;
@@ -34,6 +38,7 @@ printf "CMD Real IP:%s\n", $cmd_real_ip;
 printf "CMD wait real IP:%s\n", $wait_real_ip;
 printf "CMD add ip:%s\n", $cmd_add_ip;
 printf "CMD ena ip:%s\n", $cmd_ena_ip;
+printf "CMD group id:%s\n",$group_id;
 
 
 
@@ -41,7 +46,7 @@ print "Staring add VM to Alteon VA\n";
 
 # set vm default route
 system "route del default";
-system "route add default gw 192.168.23.200";
+system "route add default gw $host";
 
 #connect telnet server
 my $conn = new Net::Telnet(
@@ -82,30 +87,29 @@ sleep 2;
 
 $conn->waitfor($wait_real_ip);
 @output = $conn->print('name "apache"');
-print "Output:name apache\n";
+printf "Output:name apache\n";
 
 sleep 2;
-
 $conn->waitfor($wait_real_ip);
-@output = $conn->print('/c/slb/group 1');
-print "Output:/c/slb/group 1\n";
+@output = $conn->print($cmd_group_id);
+printf "Output:/c/slb/group %s\n", $group_id;
 
 sleep 2;
-$conn->waitfor('/Real Server Group 1/i');
+$conn->waitfor($wait_group_id);
 @output = $conn->print($cmd_add_ip);
 printf "Output:%s\n", $cmd_add_ip;
 
 sleep 2;
-$conn->waitfor('/Real Server Group 1/i');
+$conn->waitfor($wait_group_id);
 @output = $conn->print($cmd_ena_ip);
 printf "Output:%s\n", $cmd_ena_ip;
 
 sleep 2;
-$conn->waitfor('/Real Server Group 1/i');
+$conn->waitfor($wait_group_id);
 @output = $conn->print('apply');
 print "Output:apply\n";
 
-$conn->waitfor('/Real Server Group 1/i');
+$conn->waitfor($wait_group_id);
 @output = $conn->print('save');
 print "Output:save\n";
 
@@ -157,10 +161,11 @@ sub get_hash_ip {
 			#printf("$interface  $aref->{address}\n");
 			#print Dumper($aref);
 			my $ip = $aref->{address};
-			my $position = index($ip, "192.168.23");
+			my $position = index($ip, "192.168.2");
 			if ($position == 0) {
 				return $ip
 			}
 		}
 	}
 }
+

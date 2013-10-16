@@ -13,10 +13,14 @@ def jbossService = serviceContext.waitForService("jbossService", 300, TimeUnit.S
 jbossHostInstances = jbossService.waitForInstances(jbossService.numberOfPlannedInstances, 300, TimeUnit.SECONDS)
 jbossServerIP = jbossHostInstances[0].hostAddress
 alteonVAIP = config.AlteonVAIP
+alteonGroupID = config.AlteonGroupID
 
 println "Jboss Host IP is $jbossServerIP"
 println "Alteon MNG IP"
 println "${alteonVAIP}"
+println "Alteon Group ID"
+println "${alteonGroupID}"
+
 
 builder = new AntBuilder()
 
@@ -36,7 +40,12 @@ builder.sequential {
             match:"localhost",
             replace:"${alteonVAIP}")
 
-	//exec(executable:"/usr/bin/perl /root/script/load_pool.pl", osfamily:"unix")
+    replaceregexp(file:"/root/script/load_pool.pl",
+            match:"localgroup",
+            replace:"${alteonGroupID}")
+
+
+    //exec(executable:"/usr/bin/perl /root/script/load_pool.pl", osfamily:"unix")
     exec(executable: '/usr/bin/perl', osfamily:"unix") {
         arg value:"/root/script/load_pool.pl"
     }
